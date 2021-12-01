@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Hobbie extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'body','idusuario'
+        'descripcion','idhobbie'
     ];
 
-
-    public function user()
+    public function entrenimientos()
     {
-        return $this->belongsTo('App\Models\User','idusuario','id');
+        return $this->hasMany('App\Models\Entretenimiento','idhobbie','id');
     }
 }

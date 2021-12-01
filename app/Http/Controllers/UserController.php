@@ -64,23 +64,7 @@ class UserController extends Controller
                     'surname' => $surname
                 ]
                 );
-                
-            /*
-            return response()->json([
-                "email" => $email,
-                "name" => $name,
-                "password" => $password,
-                "gender" =>$gender,
-                "orientation" =>$orientation,
-                "status" =>$status,
-                "intention" =>$intention,
-                "age" =>$age,
-                "surname" =>$surname
-            ]);*/
-
-
-
-
+        
         } catch (QueryException $error) {
 
             $codigoError = $error->errorInfo[1];

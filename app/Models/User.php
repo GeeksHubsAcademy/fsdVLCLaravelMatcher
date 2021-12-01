@@ -21,4 +21,14 @@ class User extends Model
     {
         return $this->hasMany('App\Models\Message');
     }
+
+    public function profiles()
+    {
+        return $this->hasOne('App\Models\Profile');
+    }
+
+    public function entretenimientos()
+    {
+        return $this->hasMany('App\Models\Entretenimiento', 'iduser');
+    }
 }
