@@ -43,6 +43,7 @@ class EntretenimientoController extends Controller
             ->join('users', 'entretenimientos.iduser', '=', 'users.id')
             ->join('hobbies', 'entretenimientos.idhobbie', '=', 'hobbies.id')
             ->where('entretenimientos.iduser', '=', $id)
+            ->orderBy('descripcion', 'ASC')
             ->get();
            
         } catch (QueryException $error) {

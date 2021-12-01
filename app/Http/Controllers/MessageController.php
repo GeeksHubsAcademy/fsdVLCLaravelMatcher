@@ -57,6 +57,7 @@ class MessageController extends Controller
             return Message::selectRaw('messages.body AS mensajito , users.name AS nombre, users.intention AS buscando, users.age')
             ->join('users', 'messages.idusuario', '=', 'users.id')
             ->where('messages.idusuario', '=', $id)
+            ->orderBy('messages.created_at', 'ASC')
             ->get();
            
             
