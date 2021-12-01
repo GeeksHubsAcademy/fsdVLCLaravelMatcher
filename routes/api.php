@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EntretenimientoController;
+use App\Http\Controllers\HobbieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -27,3 +29,16 @@ Route::get('allusers', [UserController::class, 'showAllUsers']);
 Route::post('profile', [UserController::class, 'showProfile']);
 
 //Endpoints MESSAGE
+
+Route::post('message', [MessageController::class, 'addMessage']);
+Route::get('allmessages', [MessageController::class, 'showAllMessages']);
+Route::post('profile', [MessageController::class, 'showMessagesProfile']);
+
+//Endpoints HOBBIES
+
+Route::post('hobbie', [HobbieController::class, 'addHobbie']);
+
+//Endpoints ENTRETENIMIENTO
+
+Route::post('entretenerse', [EntretenimientoController::class, 'addAficion']);
+Route::post('aficiones', [EntretenimientoController::class, 'showAficionProfile']);
