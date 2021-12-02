@@ -39,31 +39,24 @@ class UserController extends Controller
 
     public function registerUser(Request $request){
 
-        $email = $request->input('email');
-        $name = $request->input('name');
-        $password = $request->input('password');
-        $gender = $request->input('gender');
-        $orientation = $request->input('orientation');
-        $status = $request->input('status');
-        $intention = $request->input('intention');
-        $age = $request->input('age');
-        $surname = $request->input('surname');
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'password' => 'required|min:8',
+            'gender' => 'required',
+            'orientation' => 'required',
+            'status' => 'required',
+            'intention' => 'required',
+            'age' => 'required',
+            'email' => 'required|email'
+        ], [
+            'name.required' => 'Name is required',
+            'password.required' => 'Password is required',
+            'email.required' => 'Email is required'
+        ]);
 
         try {
-            
-            return User::create(
-                [
-                    'email' => $email,
-                    'name' => $name,
-                    'password' => $password,
-                    'gender' => $gender,
-                    'orientation' => $orientation,
-                    'status' => $status,
-                    'intention' => $intention,
-                    'age' => $age,
-                    'surname' => $surname
-                ]
-                );
+        
+            return User::create($validatedData);
         
         } catch (QueryException $error) {
 
@@ -83,22 +76,25 @@ class UserController extends Controller
 
         $id = $request->input('id');
 
-        $email = $request->input('email');
-        $name = $request->input('name');
-        $gender = $request->input('gender');
-        $orientation = $request->input('orientation');
-        $status = $request->input('status');
-        $intention = $request->input('intention');
-        $age = $request->input('age');
-        $surname = $request->input('surname');
+        $validatedUpdate = $request->validate([
+            'id' => 'required',
+            'email' => 'required|min:8',
+            'name' => 'required|string',
+            'gender' => 'required',
+            'orientation' => 'required',
+            'status' => 'required',
+            'intention' => 'required',
+            'age' => 'required',
+            'surname' => 'required'
+        ], [
+            'name.required' => 'Name is required',
+            'password.required' => 'Password is required',
+            'email.required' => 'Email is required'
+        ]);
 
         try {
             return User::where('id', '=', $id)
-                    ->update(['email' => $email, 'name' => $name,
-                    'gender' => $gender, 'orientation' => $orientation, 
-                    'status' => $status, 'intention' => $intention, 'age' => $age,
-                    'surname' => $surname
-            ]);
+                    ->update($validatedUpdate);
 
         } catch (QueryException $error) {
             $eCode = $error->errorInfo[1];
@@ -109,9 +105,5 @@ class UserController extends Controller
                 ]);
             }
         }
-
-        
-    }
-
-    
+    }    
 }
