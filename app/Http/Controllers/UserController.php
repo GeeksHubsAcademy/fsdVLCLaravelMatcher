@@ -78,4 +78,40 @@ class UserController extends Controller
         }
 
     }
+
+    public function updateProfile(Request $request){
+
+        $id = $request->input('id');
+
+        $email = $request->input('email');
+        $name = $request->input('name');
+        $gender = $request->input('gender');
+        $orientation = $request->input('orientation');
+        $status = $request->input('status');
+        $intention = $request->input('intention');
+        $age = $request->input('age');
+        $surname = $request->input('surname');
+
+        try {
+            return User::where('id', '=', $id)
+                    ->update(['email' => $email, 'name' => $name,
+                    'gender' => $gender, 'orientation' => $orientation, 
+                    'status' => $status, 'intention' => $intention, 'age' => $age,
+                    'surname' => $surname
+            ]);
+
+        } catch (QueryException $error) {
+            $eCode = $error->errorInfo[1];
+
+            if($eCode == 1062) {
+                return response()->json([
+                    'error' => "E-mail ya registrado anteriormente"
+                ]);
+            }
+        }
+
+        
+    }
+
+    
 }

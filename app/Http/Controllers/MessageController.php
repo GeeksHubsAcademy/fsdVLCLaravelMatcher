@@ -66,5 +66,32 @@ class MessageController extends Controller
             return $error;
         }
     }
+
+    public function deleteMessage(Request $request){
+        $id = $request->input('id');
+
+        $mensajeEncontrado = Message::where('id', '=', $id);
+
+        if(!$mensajeEncontrado){
+            return response() ->json([
+                'success' => false,
+                'message' => 'Message not found',
+            ], 400);
+        }
+
+        if($mensajeEncontrado -> delete()){
+
+            return response() ->json([
+                'success' => true,
+                'message' => 'Message deleted',
+            ], 200);
+
+        } else {
+            return response() ->json([
+                'success' => false,
+                'message' => 'Message can not be deleted',
+            ], 500);
+        }
+    }
     
 }
