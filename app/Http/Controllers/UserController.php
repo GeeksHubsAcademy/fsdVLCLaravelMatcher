@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
-
 use App\Models\User;
 
 class UserController extends Controller
@@ -36,42 +35,6 @@ class UserController extends Controller
         }
     }
     
-
-    public function registerUser(Request $request){
-
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'password' => 'required|min:8',
-            'gender' => 'required',
-            'orientation' => 'required',
-            'status' => 'required',
-            'intention' => 'required',
-            'age' => 'required',
-            'email' => 'required|email'
-        ], [
-            'name.required' => 'Name is required',
-            'password.required' => 'Password is required',
-            'email.required' => 'Email is required'
-        ]);
-
-        try {
-        
-            return User::create($validatedData);
-        
-        } catch (QueryException $error) {
-
-            $codigoError = $error->errorInfo[1];
-
-            if($codigoError == 1062) {
-                return response()->json([
-                    'error' => "E-mail ya registrado anteriormente"
-                ]);
-            }
-
-        }
-
-    }
-
     public function updateProfile(Request $request){
 
         $id = $request->input('id');
